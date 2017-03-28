@@ -28,7 +28,7 @@ class Cred(CredBase):
     username = Column(String(128), primary_key=True)
     password = Column(String(128))
     token = Column(String(128))
-
+    salt  = Column(String(128))
 
 
 
