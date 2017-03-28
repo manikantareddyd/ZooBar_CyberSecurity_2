@@ -13,11 +13,11 @@ class AuthRpcServer(rpclib.RpcServer):
     def rpc_register(self, **kwargs):
         username = kwargs['username']
         password = kwargs['password'] 
-        return auth.login(username, password)
+        return auth.register(username, password)
     def rpc_check_token(self, **kwargs):
         username = kwargs['username']
         token = kwargs['token'] 
-        return auth.login(username, token)
+        return auth.check_token(username, token)
 
 (_, dummy_zookld_fd, sockpath) = sys.argv
 
