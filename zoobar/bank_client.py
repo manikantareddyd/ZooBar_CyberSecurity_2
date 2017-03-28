@@ -2,9 +2,9 @@ from debug import *
 from zoodb import *
 import rpclib
 
-def transfer(sender, recipient, zoobars):
+def transfer(sender, recipient, zoobars, token):
     with rpclib.client_connect('/banksvc/sock') as c:
-        kwargs = {"sender":sender, "recipient":recipient, "zoobars": zoobars}
+        kwargs = {"sender":sender, "recipient":recipient, "zoobars": zoobars, "token":token}
         ret = c.call('transfer', **kwargs)
         return ret
 

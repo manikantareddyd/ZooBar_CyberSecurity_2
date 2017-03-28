@@ -13,7 +13,7 @@ zookld zookd zookfs: %: %.o http.o
 .PHONY: check
 check:
 	./check_lab2.py
-	# ./check_lab2_part4.py
+	./check_lab2_part4.py
 
 
 .PHONY: setup

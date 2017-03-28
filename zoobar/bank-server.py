@@ -3,6 +3,7 @@
 import rpclib
 import sys
 import bank
+import auth_client
 from debug import *
 
 class BankRpcServer(rpclib.RpcServer):
@@ -10,7 +11,12 @@ class BankRpcServer(rpclib.RpcServer):
         sender = kwargs['sender']
         recipient = kwargs['recipient']
         zoobars = kwargs['zoobars']
-        return bank.transfer(sender, recipient, zoobars)
+        token = kwargs['token']
+        if auth_client.check_token(sender, token):
+            return bank.transfer(sender, recipient, zoobars)
+        else:
+            print "Invalid Token"
+            return 0
     def rpc_balance(self, **kwargs):
         username = kwargs['username']
         return bank.balance(username)

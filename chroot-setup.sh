@@ -65,6 +65,9 @@ create_socket_dir /jail/authsvc 91010:91010 755
 #for banksvc
 create_socket_dir /jail/banksvc 81010:81010 755
 
+#for profilesvc
+create_socket_dir /jail/profilesvc 0:41011 755
+
 mkdir -p /jail/tmp
 chmod a+rwxt /jail/tmp
 
