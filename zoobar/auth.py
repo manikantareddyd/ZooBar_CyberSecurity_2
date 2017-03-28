@@ -5,6 +5,7 @@ import hashlib
 import random
 from os import urandom
 import pbkdf2
+import bank_client
 
 def newtoken(db, cred):
     hashinput = "%s%.10f" % (cred.password, random.random())
@@ -25,6 +26,7 @@ def login(username, password):
         return None
 
 def register(username, password):
+    bank_client.new_account(username)
     db = person_setup()
     person = db.query(Person).get(username)
     if person:

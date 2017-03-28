@@ -56,11 +56,14 @@ cp /etc/resolv.conf /jail/etc/
 mkdir -p /jail/usr/share/zoneinfo
 cp -r /usr/share/zoneinfo/America /jail/usr/share/zoneinfo/
 
+#for echosvc
 create_socket_dir /jail/echosvc 61010:61010 755
 
 #for authsvc
 create_socket_dir /jail/authsvc 91010:91010 755
 
+#for banksvc
+create_socket_dir /jail/banksvc 81010:81010 755
 
 mkdir -p /jail/tmp
 chmod a+rwxt /jail/tmp
@@ -74,10 +77,15 @@ rm -rf /jail/zoobar/db
 python /jail/zoobar/zoodb.py init-person
 python /jail/zoobar/zoodb.py init-transfer
 python /jail/zoobar/zoodb.py init-cred
+python /jail/zoobar/zoodb.py init-bank
 
 chown -R 41011:41011 /jail/zoobar/index.cgi
 chown -R 44444:41011 /jail/zoobar/db/
 chown -R 91010:91010 /jail/zoobar/db/cred
+chown -R 81010:81010 /jail/zoobar/db/bank
+chown -R 81010:41011 /jail/zoobar/db/transfer
+
 
 chmod -R 770 /jail/zoobar/db/
 chmod -R 700 /jail/zoobar/db/cred
+chmod -R 700 /jail/zoobar/db/bank
