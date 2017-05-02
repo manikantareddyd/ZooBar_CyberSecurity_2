@@ -10,6 +10,7 @@ import socket
 import bank, bank_client
 import zoodb
 import os
+import re
 from debug import *
 
 ## Cache packages that the sandboxed code might want to import
@@ -18,10 +19,10 @@ import errno
 
 class ProfileAPIServer(rpclib.RpcServer):
     def __init__(self, user, visitor, token):
-        os.setresuid(81010, 81010, 0)
         self.user = user
         self.visitor = visitor
         self.token = token
+        os.setresuid(81010,81010,0)
 
     def rpc_get_self(self):
         return self.user
@@ -65,10 +66,10 @@ class ProfileServer(rpclib.RpcServer):
         db = zoodb.cred_setup()
         person= db.query(zoodb.Cred).get(user)
         token=person.token
-        # userdir = os.path.join('/tmp',re.escape(user))
-        # if not os.path.isdir(userdir):
-        #     os.mkdir(userdir, 0700)
-        #     os.chown(userdir, uid, 41011)
+        userdir = os.path.join('/tmp',re.escape(user))
+        if not os.path.isdir(userdir):
+            os.mkdir(userdir, 0700)
+            os.chown(userdir, uid, 41011)
 
         (sa, sb) = socket.socketpair(socket.AF_UNIX, socket.SOCK_STREAM, 0)
         pid = os.fork()
